@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+<%= hidden_field_tag 'page', @current_page %>
+
   <div class="field">
     <%= form.label :lastname %>
     <%= form.text_field :lastname, id: :user_lastname %>

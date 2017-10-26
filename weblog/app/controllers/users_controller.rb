@@ -1,10 +1,13 @@
 class UsersController < ApplicationController
+  before_action :set_current_page, except: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+
 
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page],
+                          per_page: params[:per_page]).order('lastname, firstname')
   end
 
   # GET /users/1
@@ -56,7 +59,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url(page: @current_page), notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +68,10 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+    end
+
+    def set_current_page
+      @current_page=params[:page] || 1
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
