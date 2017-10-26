@@ -15,6 +15,20 @@
     <%= form.label :title %>
     <%= form.text_field :title, id: :post_title %>
   </div>
+  
+  <div class="field">
+    <%= form.label :email %>
+    <%= if post.user
+      text_field_tag 'email',post.user.email
+    else
+      text_field_tag 'email'
+    end %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :body %><br>
+    <%= form.text_area :body %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

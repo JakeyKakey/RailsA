@@ -5,5 +5,18 @@
   <%= @post.title %>
 </p>
 
+<p>
+  <strong>Email:</strong>
+  <% if @post.user %>
+    <%= link_to "#{@post.user.email}", @post.user %>
+  <% else %>
+    Anonymous
+  <% end %>
+</p>
+
+<p>
+  <%= @post.body %>
+</p>
+
 <%= link_to 'Edit', edit_post_path(@post) %> |
 <%= link_to 'Back', posts_path %>
